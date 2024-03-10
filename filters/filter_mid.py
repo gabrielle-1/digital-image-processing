@@ -3,7 +3,7 @@ import cv2 as cv
 
 def main():
     
-    img = cv.imread('C:\\opencv\\sources\\doc\\images\\fruits.png')
+    img = cv.imread('C:\\opencv\\sources\\samples\\data\\fruits.jpg')
     if img is None:
         print('Não localizei a imagem:', img)
         sys.exit(1)    

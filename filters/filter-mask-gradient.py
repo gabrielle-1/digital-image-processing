@@ -28,7 +28,8 @@ def gradiant(img):
 
     # grad = cv.addWeighted(abs_grad_x, 0.7, abs_grad_y, 0.2, 0)
     grad_mid = cv.addWeighted(abs_grad_x, 0.5, abs_grad_y, 0.5, 0)
-    return grad_mid
+    cv.imshow('Gradient Mid', grad_mid)
+
 
 # Gradient Sobel
 def gradiant_sobel(img):
@@ -43,7 +44,8 @@ def gradiant_sobel(img):
     # You can change alpha and beta values
     # grad_sobel = cv.addWeighted(abs_grad_x, 0.2, abs_grad_y, 0.7, 0)
     grad_sobel = cv.addWeighted(abs_grad_x, 0.5, abs_grad_y, 0.5, 0)
-    return grad_sobel
+    cv.imshow('Gradient Sobel', grad_sobel)
+
 
 # Gradient Prewitt
 def gradiant_prewitt(img):    
@@ -76,56 +78,53 @@ def gradiant_prewitt(img):
     abs_grad_y = cv.convertScaleAbs(grad_y)  
   
     # grad = cv.addWeighted(abs_grad_x, 0.7, abs_grad_y, 0.2, 0)
-    grad_mid = cv.addWeighted(abs_grad_x, 0.5, abs_grad_y, 0.5, 0)    
+    grad_prewitt = cv.addWeighted(abs_grad_x, 0.5, abs_grad_y, 0.5, 0)    
 
-    return grad_mid
+    cv.imshow('Gradient Prewitt', grad_prewitt)
 
-def translation() :
+def translation(img) :
     o_heigth, o_width = img.shape[:2]
     o_dim = (o_width, o_heigth)
 
     matrix_translation = np.float64([[1,0,100], [0,1,50]])
     translated_img = cv.warpAffine(img, matrix_translation, o_dim)
-    cv.imshow('translation', translated_img)
+    cv.imshow('Translation to Image', translated_img)
 
-def rotation() :
-    #Definy what is the fixed point(center)
+def rotation(img) :
+    # Define what is the fixed point(in center)
     o_heigth, o_width = img.shape[:2]
     o_dim = (o_width, o_heigth)
     scale = 1
     center = (o_width / 2, o_heigth / 2)
     matrix_rotation = cv.getRotationMatrix2D(center, 180, scale)
     rotated_img = cv.warpAffine(img, matrix_rotation, o_dim)
-    cv.imshow('rotation', rotated_img)
+    cv.imshow('Rotation to Image', rotated_img)
 
-img = cv.imread('C:\\opencv\\sources\\doc\\images\\lena.png')
+# Define image
+img = cv.imread('C:\\opencv\\sources\\samples\\data\\messi5.jpg')
 
 # Module Derivate parcial x Roberts
-x_roberts = np.array([
-    [0, 0, 0],
-    [0, 1, 0],
-    [0, 0, -1]
-]);
+# x_roberts = np.array([
+#     [0, 0, 0],
+#     [0, 1, 0],
+#     [0, 0, -1]
+# ]);
 
 # Module Derivate parcial y Roberts
-y_roberts = np.array([
-    [0, 0, 0],
-    [0, 0, 1],
-    [0, -1, 0]
-]);
+# y_roberts = np.array([
+#     [0, 0, 0],
+#     [0, 0, 1],
+#     [0, -1, 0]
+# ]);
 
 
-grad = gradiant(img)
-grad_roberts = gradiant(img)
-grad_sobel = gradiant_sobel(img)
-grad_prewitt = gradiant_prewitt(img)
+gradiant(img)
+gradiant(img)
+gradiant_sobel(img)
+gradiant_prewitt(img)
+rotation(img)
+translation(img)
 
-rotation()
-# translation()
-# cv.imshow('image prewitt', grad_prewitt)
-# cv.imshow('image sobel', grad_sobel)
-# cv.imshow('image', grad)
-# cv.imshow('image roberts', grad_roberts)
 
 while True:
     ch = cv.waitKey()
